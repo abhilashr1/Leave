@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Leave.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Leave
 {
@@ -22,6 +24,7 @@ namespace Leave
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +41,8 @@ namespace Leave
             }
 
             app.UseStaticFiles();
+
+
 
             app.UseMvc(routes =>
             {

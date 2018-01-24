@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Request Leave";
+}
+
+
+<div class="row text-center">
+    <h2>Request your leave</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form action="/Request/Submit" method="post">
+            <div class="form-group">
+
+
+
+                <label for="From">From</label>
+                <div class='input-group date' id='datetimepicker11'>
+                    <input type='datetime' name="From" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar">
+                        </span>
+                    </span>
+                </div>
+
+                <!-- <input type="datetime" name="From" class="form-control" id="From" >-->
+                <small id="" class="form-text text-muted">Including this date.</small>
+            </div>
+            <div class="form-group">
+                <label for="To">To</label>
+                <div class='input-group date' id='datetimepicker12'>
+                    <input type='datetime' name="To" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar">
+                        </span>
+                    </span>
+                </div>
+
+                <small id="" class="form-text text-muted">Including this date.</small>
+            </div>
+
+            <div class="form-check">
+                <label for="Reason">State your reason</label>
+                <input type="text" class="form-control" id="Reason" name="Reason">
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+        $(function () {
+            $('#datetimepicker11').datetimepicker({
+                daysOfWeekDisabled: [0, 6]
+            });
+    });
+
+    $(function () {
+        $('#datetimepicker11').datetimepicker({
+            daysOfWeekDisabled: [0, 6]
+        });
+    });
+</script>
+<
