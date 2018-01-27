@@ -24,7 +24,7 @@ namespace Leave.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("Approved");
+                    b.Property<string>("Approved");
 
                     b.Property<string>("Approver");
 
@@ -33,6 +33,8 @@ namespace Leave.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("Reason");
+
+                    b.Property<DateTime>("RequestTime");
 
                     b.Property<DateTime>("To");
 

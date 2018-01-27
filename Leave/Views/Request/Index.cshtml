@@ -8,15 +8,15 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <form action="/Request/Submit" method="post">
+    <div class="col-md-12" id="formcontainer">
+        
+        <form>
             <div class="form-group">
-
 
 
                 <label for="From">From</label>
                 <div class='input-group date' id='datetimepicker11'>
-                    <input type='datetime' name="From" class="form-control" />
+                    <input type='datetime' name="From" class="datepicker form-control" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar">
                         </span>
@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label for="To">To</label>
                 <div class='input-group date' id='datetimepicker12'>
-                    <input type='datetime' name="To" class="form-control" />
+                    <input type='datetime' name="To" class="datepicker form-control" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar">
                         </span>
@@ -44,23 +44,32 @@
                 <input type="text" class="form-control" id="Reason" name="Reason">
             </div>
             <br />
-            <button type="submit" class="btn btn-primary">Apply</button>
+            <button type="button" class="btn btn-primary" id="Apply">Apply</button>
         </form>
 
     </div>
 </div>
-
-<script type="text/javascript">
-        $(function () {
-            $('#datetimepicker11').datetimepicker({
-                daysOfWeekDisabled: [0, 6]
-            });
-    });
-
-    $(function () {
-        $('#datetimepicker11').datetimepicker({
-            daysOfWeekDisabled: [0, 6]
+<script>
+    $(".datepicker").datepicker(
+        {
+            "dateFormat" : "dd/mm/yy"
+        }
+    );
+    var success =
+        "<br><br><div class='text-center'><p>You have successfully applies for a leave. You can monitor the progress in your </p></div>";
+    $("#Apply").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/Request/Submit",
+            data: $("#form").serialize(),
+            success: function () {
+                $("#formcontainer").text("Success");
+                console.log("Success");
+            },
+            error: function (a, b, c) {
+                $("#formcontainer").text(a + b + c);
+                console.log("Failure");
+            }
         });
     });
 </script>
-<

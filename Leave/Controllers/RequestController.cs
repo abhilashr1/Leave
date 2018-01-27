@@ -35,7 +35,7 @@ namespace Leave.Controllers
                         Name = Name,
                         From = From,
                         To = To,
-                        Approved = false,
+                        Approved = "Not Approved Yet",
                         Approver = "Not Approved Yet"
                     });
                     var count = db.SaveChanges();

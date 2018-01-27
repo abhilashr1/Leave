@@ -20,7 +20,9 @@ namespace Leave.Models
 
         public string Reason { get; set; }
 
-        public bool Approved { get; set; }
+        public DateTime RequestTime { get; set; }
+
+        public string Approved { get; set; }
 
         public string Approver { get; set; }
 
