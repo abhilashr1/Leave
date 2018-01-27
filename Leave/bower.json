@@ -2,7 +2,8 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "jquery-ui": "jqueryui#1.12.1"
+    "jquery-ui": "jqueryui#1.12.1",
+    "fullcalendar": "v3.8.0"
   },
   "directory": "wwwroot/lib"
 }

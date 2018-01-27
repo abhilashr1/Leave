@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Team Calendar";
+}
+@model IEnumerable<Leave.Models.LeaveRequest>
+
+<link rel='stylesheet' href='~/lib/fullcalendar/dist/fullcalendar.min.css' />
+<script src='~/lib/moment/moment.js'></script>
+<script src='~/lib/fullcalendar/dist/fullcalendar.min.js'></script>
+
+<div class="hero">
+    <h2>Team Calendar</h2>
+</div>
+
+<br />
+<br />
+<br />
+
+<div class="row">
+    <a class="button">Populate</a>
+    <div id="calendar"></div>
+
+
+</div>
+<script>
+    $(document).ready(function () {
+
+        // page is now ready, initialize the calendar...
+
+        var RealEvents = [];
+
+            @foreach(var item in Model)
+            {
+                <text>
+                    RealEvents.push(
+                        {
+                            title: '@item.Name',
+                            start: '@item.From.ToString("yyyy-MM-dd")',
+                            end: '@item.To.ToString("yyyy-MM-dd")'
+                        }
+                    );
+                </text>
+
+            }
+        
+
+        $('#calendar').fullCalendar({
+            // put your options and callbacks here
+            //defaultView: 'timelineMonth',
+            events: RealEvents
+        });
+        console.log(RealEvents);
+    });
+</script>

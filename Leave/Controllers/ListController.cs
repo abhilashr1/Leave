@@ -18,10 +18,10 @@ namespace Leave.Controllers
                        .Where(s => s.Name == User.Identity.Name);
 
             var Approved = baseContext
-                            .Where(x => x.Approved != "Approved");
+                            .Where(x => x.Approved == "Approved");
 
             var Rejected = baseContext
-                            .Where(x => x.Approved != "Rejected");
+                            .Where(x => x.Approved == "Rejected");
 
 
             var Pending = baseContext

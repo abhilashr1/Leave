@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Leaves.db" />
     <None Remove="Readme.MD" />
   </ItemGroup>
 

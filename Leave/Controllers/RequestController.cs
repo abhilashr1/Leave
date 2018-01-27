@@ -23,7 +23,7 @@ namespace Leave.Controllers
         {
             DateTime FromDt = Convert.ToDateTime(From);
             DateTime ToDt = Convert.ToDateTime(To);
-
+            string ReasonText = Reason.Trim();
             int result = DateTime.Compare(FromDt, ToDt);
             if (result > 0)
             {
@@ -39,8 +39,9 @@ namespace Leave.Controllers
                         Name = Name,
                         From = FromDt,
                         To = ToDt,
-                        Approved = "Not Approved Yet",
-                        Approver = "Not Approved Yet",
+                        Reason = ReasonText,
+                        Approved = "NA",
+                        Approver = "NA",
                         RequestTime = DateTime.Now,
 
                     });
