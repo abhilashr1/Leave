@@ -11,8 +11,8 @@ using System;
 namespace Leave.Migrations
 {
     [DbContext(typeof(LeaveRequestContext))]
-    [Migration("20180127123326_requestTimeAdd")]
-    partial class requestTimeAdd
+    [Migration("20180127124328_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
