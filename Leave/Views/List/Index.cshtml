@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "List Leaves";
+}
+@model dynamic
+
+<div class="hero">
+    <h2>@User.Identity.Name's Requests</h2>
+</div>
+
+<br />
+<br />
+<br />
+
+<div class="row">
+    <!-- Pending -->
+    <br />
+    <h2>Pending Requests</h2>
+    <br />
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Reason</th>
+                    <th>Approval</th>
+                    <th>Approver</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Pending)
+            {
+                <tr>
+                    <td>@item.From</td>
+                    <td>@item.To</td>
+                    <td>@item.Reason</td>
+                    <td>@item.Approved</td>
+                    <td>@item.Approver</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        </div>
+
+    <!-- Approved -->
+    <br />
+    <h2>Approved Requests</h2>
+    <br />
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Reason</th>
+                    <th>Approval</th>
+                    <th>Approver</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Approved)
+            {
+                    <tr>
+                        <td>@item.From</td>
+                        <td>@item.To</td>
+                        <td>@item.Reason</td>
+                        <td>@item.Approved</td>
+                        <td>@item.Approver</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Rejected -->
+    <br />
+    <h2>Rejected Requests</h2>
+    <br />
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Reason</th>
+                    <th>Approval</th>
+                    <th>Approver</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Rejected)
+            {
+                    <tr>
+                        <td>@item.From</td>
+                        <td>@item.To</td>
+                        <td>@item.Reason</td>
+                        <td>@item.Approved</td>
+                        <td>@item.Approver</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

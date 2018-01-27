@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Leave.Models;
+using System.Net.Http;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,13 +19,16 @@ namespace Leave.Controllers
         }
 
         [HttpPost]
-        public void Submit(DateTime From, DateTime To, string Reason)
+        public HttpResponseMessage Submit(string From, string To, string Reason)
         {
-            int result = DateTime.Compare(From, To);
+            DateTime FromDt = Convert.ToDateTime(From);
+            DateTime ToDt = Convert.ToDateTime(To);
+
+            int result = DateTime.Compare(FromDt, ToDt);
             if (result > 0)
             {
                 // To date is greater than From
-                return;
+                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest); ;
             }
             else
             {
@@ -33,16 +37,18 @@ namespace Leave.Controllers
                 {
                     db.LeaveRequest.Add(new LeaveRequest {
                         Name = Name,
-                        From = From,
-                        To = To,
+                        From = FromDt,
+                        To = ToDt,
                         Approved = "Not Approved Yet",
-                        Approver = "Not Approved Yet"
+                        Approver = "Not Approved Yet",
+                        RequestTime = DateTime.Now,
+
                     });
                     var count = db.SaveChanges();
                 }
-
+                return new HttpResponseMessage(System.Net.HttpStatusCode.OK); ;
             }
-                
+
         }
     }
 }

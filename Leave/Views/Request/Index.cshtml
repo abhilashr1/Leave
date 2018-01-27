@@ -10,13 +10,13 @@
 <div class="row">
     <div class="col-md-12" id="formcontainer">
         
-        <form>
+        <form id="form">
             <div class="form-group">
 
 
                 <label for="From">From</label>
                 <div class='input-group date' id='datetimepicker11'>
-                    <input type='datetime' name="From" class="datepicker form-control" />
+                    <input type='datetime' name="From" id="From" class="datepicker form-control" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar">
                         </span>
@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label for="To">To</label>
                 <div class='input-group date' id='datetimepicker12'>
-                    <input type='datetime' name="To" class="datepicker form-control" />
+                    <input type='datetime' name="To" id="To" class="datepicker form-control" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar">
                         </span>
@@ -57,11 +57,16 @@
     );
     var success =
         "<br><br><div class='text-center'><p>You have successfully applies for a leave. You can monitor the progress in your </p></div>";
-    $("#Apply").click(function(){
+    $("#Apply").click(function () {
+        var dats = {
+            From: $("#From").val(),
+            To: $("#To").val(),
+            Reason: $("#Reason").val()
+        };
         $.ajax({
             type: "POST",
             url: "/Request/Submit",
-            data: $("#form").serialize(),
+            data: dats,
             success: function () {
                 $("#formcontainer").text("Success");
                 console.log("Success");
