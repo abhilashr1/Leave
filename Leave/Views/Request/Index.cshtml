@@ -2,7 +2,6 @@
     ViewData["Title"] = "Request Leave";
 }
 
-
 <div class="row text-center">
     <h2>Request your leave</h2>
 </div>
@@ -57,24 +56,105 @@
     );
     var success =
         "<br><br><div class='text-center'><p>You have successfully applies for a leave. You can monitor the progress in your </p></div>";
+
+    function validate() {
+        var from = $("#From").val().trim();
+        var to = $("#To").val().trim();
+        var reason = $("#Reason").val().trim();
+
+        if (from == "" || to == "" | reason == "") {
+            return false;
+        }
+        if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(from))
+            return false;
+        if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(to))
+            return false;
+
+        // Parse the date parts to integers
+        var parts = from.split("/");
+        var day = parseInt(parts[0], 10);
+        var month = parseInt(parts[1], 10);
+        var year = parseInt(parts[2], 10);
+
+        // Check the ranges of month and year
+        if (year < 1000 || year > 3000 || month == 0 || month > 12)
+            return false;
+
+        var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        // Adjust for leap years
+        if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+            monthLength[1] = 29;
+
+        // Check the range of the day
+        var FromResult = day > 0 && day <= monthLength[month - 1];
+
+        // Parse the date parts to integers
+        var parts = to.split("/");
+        var day = parseInt(parts[0], 10);
+        var month = parseInt(parts[1], 10);
+        var year = parseInt(parts[2], 10);
+
+        // Check the ranges of month and year
+        if (year < 1000 || year > 3000 || month == 0 || month > 12)
+            return false;
+
+        var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        // Adjust for leap years
+        if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+            monthLength[1] = 29;
+
+        // Check the range of the day
+        var ToResult = day > 0 && day <= monthLength[month - 1];
+
+        if (!(FromResult && ToResult))
+            return false; 
+
+        var fromparts = from.split("/");
+        var fromobj = new Date(fromparts[2], fromparts[1] - 1, fromparts[0]); // month is 0-based
+        var toparts = to.split("/");
+        var toobj = new Date(toparts[2], toparts[1] - 1, toparts[0]); // month is 0-based
+        if (toobj < fromobj) {
+            console.log("To less than from");
+            return false;
+        }
+
+        return true;
+    }
+
+
+
     $("#Apply").click(function () {
-        var dats = {
-            From: $("#From").val(),
-            To: $("#To").val(),
-            Reason: $("#Reason").val()
-        };
-        $.ajax({
-            type: "POST",
-            url: "/Request/Submit",
-            data: dats,
-            success: function () {
-                $("#formcontainer").text("<br><br><div class='text-center'><h3>Success</h3></div>");
-                console.log("Success");
-            },
-            error: function (a, b, c) {
-                $("#formcontainer").text(a + b + c);
-                console.log("Failure");
-            }
-        });
+
+        if (validate()) {
+            var dats = {
+                From: $("#From").val().trim(),
+                To: $("#To").val().trim(),
+                Reason: $("#Reason").val().trim()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Request/Submit",
+                data: dats,
+                success: function () {
+                    $("#formcontainer").html("<br><br><div class='text-center'><h3>Success</h3></div><br><br>");
+                    console.log("Success");
+                },
+                error: function (a, b, c) {
+                    $("#formcontainer").text(a + b + c);
+                    console.log("Failure");
+                }
+            });
+        }
+
+        else {
+            alert("Invalid characters entered. Check and try again.");
+
+        }
+
+        
+           
     });
 </script>

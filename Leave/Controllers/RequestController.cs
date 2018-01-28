@@ -25,10 +25,10 @@ namespace Leave.Controllers
             DateTime ToDt = Convert.ToDateTime(To);
             string ReasonText = Reason.Trim();
             int result = DateTime.Compare(FromDt, ToDt);
-            if (result > 0)
+            if (result > -1 && result != 0)
             {
                 // To date is greater than From
-                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest); ;
+                return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError); 
             }
             else
             {
