@@ -76,7 +76,12 @@
                     }
 
                 </ul>
-                    <p class="nav navbar-text navbar-right">@User.Identity.Name</p>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a asp-area="" asp-controller="Home" asp-action="About" class="">About</a></li>
+                    <li class="active"><a>@User.Identity.Name</a></li>
+                </ul>
+                   <!-- <p class="nav navbar-text navbar-right">@User.Identity.Name</p> -->
                 
             </div>
         </div>
@@ -86,7 +91,8 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Workforce Management for Teams. <a href="mailto:abrejana@microsoft.com">Contact author</a>. </p>
+            <p>&copy; 2018 - Workforce Management for Teams. <a asp-area="" asp-controller="Home" asp-action="About" class="">About</a> / 
+<a href="mailto:abrejana@microsoft.com">Contact author</a>. </p>
         </footer>
     </div>
 
