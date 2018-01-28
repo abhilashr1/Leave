@@ -8,11 +8,11 @@ namespace Leave.Models
 {
     public class AdminModelContext: DbContext
     {
-        public DbSet<AdminModel> LeaveRequest { get; set; }
+        public DbSet<AdminModel> AdminModel { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=Admins.db");
+            optionsBuilder.UseSqlite("Data Source=Leaves.db");
         }
     }
 }
