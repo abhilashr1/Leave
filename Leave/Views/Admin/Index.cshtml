@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "List Leaves";
+    ViewData["Title"] = "Admin Access";
 }
 @model dynamic
 
 <div class="hero">
-    <h2>@User.Identity.Name.Split('\\')[1]'s Requests</h2>
+    <h2>All Requests</h2>
 </div>
 
 <br />
@@ -20,9 +20,11 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Name</th>
                     <th>From</th>
                     <th>To</th>
                     <th>Reason</th>
+                    <th>Time of Request</th>
                     <th>Approval</th>
                     <th>Approver</th>
                 </tr>
@@ -31,9 +33,11 @@
                 @foreach (var item in Model.Pending)
             {
                 <tr>
+                    <td>@item.Name</td>
                     <td>@item.From.ToShortDateString()</td>
                     <td>@item.To.ToShortDateString()</td>
                     <td>@item.Reason</td>
+                    <td>@item.RequestTime</td>
                     <td>@item.Approved</td>
                     <td>@item.Approver</td>
                 </tr>
@@ -50,9 +54,11 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Name</th>
                     <th>From</th>
                     <th>To</th>
                     <th>Reason</th>
+                    <th>Time of Request</th>
                     <th>Approval</th>
                     <th>Approver</th>
                 </tr>
@@ -61,9 +67,11 @@
                 @foreach (var item in Model.Approved)
             {
                     <tr>
+                        <td>@item.Name</td>
                         <td>@item.From.ToShortDateString()</td>
                         <td>@item.To.ToShortDateString()</td>
                         <td>@item.Reason</td>
+                        <td>@item.RequestTime</td>
                         <td>@item.Approved</td>
                         <td>@item.Approver</td>
                     </tr>
@@ -80,9 +88,11 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Name</th>
                     <th>From</th>
                     <th>To</th>
                     <th>Reason</th>
+                    <th>Time of Request</th>
                     <th>Approval</th>
                     <th>Approver</th>
                 </tr>
@@ -91,9 +101,11 @@
                 @foreach (var item in Model.Rejected)
             {
                     <tr>
+                        <td>@item.Name</td>
                         <td>@item.From.ToShortDateString()</td>
                         <td>@item.To.ToShortDateString()</td>
                         <td>@item.Reason</td>
+                        <td>@item.RequestTime</td>
                         <td>@item.Approved</td>
                         <td>@item.Approver</td>
                     </tr>

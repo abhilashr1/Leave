@@ -3,7 +3,7 @@
 }
 
 <div class="hero">
-    <h2>@User.Identity.Name Dashboard</h2>
+    <h2>Hello, @User.Identity.Name.Split('\\')[1]!</h2>
 </div>
 
 <br />
@@ -13,25 +13,14 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Pending leaves</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
+        <p>You have @ViewData["pendingcount"] pending leave requests.</p>
     </div>
     <div class="col-md-4">
-        <h2>Apply for a leave</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
+        <h2>Approved leaves</h2>
+        <p>You have @ViewData["approvedcount"] approved leave requests.</p>
     </div>
     <div class="col-md-4">
-        <h2>View calendar</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
+        <h2>Denied leaves</h2>
+        <p>You have @ViewData["rejectedcount"] denied leave requests.</p>
     </div>
 </div>

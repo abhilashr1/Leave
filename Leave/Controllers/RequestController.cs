@@ -32,7 +32,7 @@ namespace Leave.Controllers
             }
             else
             {
-                string Name = User.Identity.Name;
+                string Name = User.Identity.Name.Split('\\')[1]; ;
                 using (var db = new LeaveRequestContext())
                 {
                     db.LeaveRequest.Add(new LeaveRequest {

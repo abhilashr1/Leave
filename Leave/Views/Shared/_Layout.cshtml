@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -61,6 +63,17 @@
                     <li><a asp-area="" asp-controller="Request" asp-action="Index">Request</a></li>
                     <li><a asp-area="" asp-controller="List" asp-action="Index">List</a></li>
                     <li><a asp-area="" asp-controller="Calendar" asp-action="Index">Calendar</a></li>
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("admin") == "true")
+                    {
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="" asp-controller="Admin" asp-action="Index" >Admin Dashboard</a></li>
+                                <li><a asp-area="" asp-controller="Admin" asp-action="Approve">Approve</a></li>
+                            </ul>
+                        </li>
+                        <li></li>
+                    }
 
                 </ul>
                 <p class="nav navbar-text navbar-right">@User.Identity.Name</p>

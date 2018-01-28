@@ -25,7 +25,7 @@
     $(document).ready(function () {
 
         // page is now ready, initialize the calendar...
-
+        var colors = ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#009688", "#FF9800", "#795548", "#607D8B"]
         var RealEvents = [];
 
             @foreach(var item in Model)
@@ -35,7 +35,8 @@
                         {
                             title: '@item.Name',
                             start: '@item.From.ToString("yyyy-MM-dd")',
-                            end: '@item.To.ToString("yyyy-MM-dd")'
+                            end: '@item.To.ToString("yyyy-MM-dd")',
+                            color: colors[Math.floor(Math.random() * colors.length)]
                         }
                     );
                 </text>

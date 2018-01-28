@@ -13,9 +13,9 @@ namespace Leave.Controllers
         public IActionResult Index()
         {
             var context = new LeaveRequestContext();
-
+            var userName = User.Identity.Name.Split('\\')[1];
             var baseContext = context.LeaveRequest
-                       .Where(s => s.Name == User.Identity.Name);
+                       .Where(s => s.Name == userName);
 
             var Approved = baseContext
                             .Where(x => x.Approved == "Approved");

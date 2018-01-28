@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Approve - Admin Access";
+}
+@model IEnumerable<Leave.Models.LeaveRequest>
+
+<div class="hero">
+    <h2>Hello, @User.Identity.Name.Split('\\')[1];</h2>
+    <p style="font-size:12px;color:#aaa;"> Remember: A happy employee is an employee with a lot of leave requests approved.</p>
+</div>
+
+<br />
+<br />
+<br />
+
+<div class="row">
+    <!-- Pending -->
+    <br />
+    <h2>Pending Requests</h2>
+    <br />
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Reason</th>
+                    <th>Approval</th>
+                    <th>Approve?</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.From.ToShortDateString()</td>
+                    <td>@item.To.ToShortDateString()</td>
+                    <td>@item.Reason</td>
+                    <td>@item.Approved</td>
+                    <td>
+                        <div id="approver-@item.Id">
+                            <button type="button" class="btn btn-primary approve" value="@item.Id">Approve</button>
+                            <button type="button" class="btn btn-danger deny" value="@item.Id">Deny</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        </div>
+</div>
+
+<script>
+    $(".approve").click(function(){
+        console.log("Approve clicked");
+        console.log($(this).val());
+        var element = '#approver-' + $(this).val();
+        var dats = {
+            Id: $(this).val(),
+            Approve: 1
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Approver",
+            data: dats,
+            success: function () {
+                $(element).text("Sweet! Approved.");
+            },
+            error: function (a, b, c) {
+                $(element).text("Error occured. Try again");
+            }
+        });
+        
+    });
+    $(".deny").click(function () {
+        console.log("Deny clicked");
+        console.log($(this).val());
+        var element = '#approver-' + $(this).val();
+        var dats = {
+            Id: $(this).val(),
+            Approve: 2
+        }
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Approver",
+            data: dats,
+            success: function () {
+                $(element).text("Denied :(");
+            },
+            error: function (a, b, c) {
+                $(element).text("Error occured. Try again");
+            }
+        });
+
+    });
+</script>
