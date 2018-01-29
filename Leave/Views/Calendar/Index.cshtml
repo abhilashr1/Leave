@@ -16,7 +16,7 @@
 <br />
 
 <div class="row">
-    <a class="button">Populate</a>
+
     <div id="calendar"></div>
 
 
@@ -25,24 +25,48 @@
     $(document).ready(function () {
 
         // page is now ready, initialize the calendar...
-        var colors = ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#03A9F4", "#009688", "#FF9800", "#795548", "#607D8B"]
+        var colors = ["#F44336", "#FF9800", "#607D8B"]
         var RealEvents = [];
 
             @foreach(var item in Model)
             {
                 <text>
-                    RealEvents.push(
+                    var enddate = new Date('@item.To.ToString("yyyy-MM-dd")');
+                    enddate.setDate(enddate.getDate() + 1);
+                    @if (item.Approved == "NA")
+                    {
+                        <text>
+                        RealEvents.push(
+                        {
+                            title: '@item.Name'+' [Pending]',
+                            start: '@item.From.ToString("yyyy-MM-dd")',
+                            end: enddate.toISOString().substring(0, 10),
+                            color: colors[1]
+                            }
+                        );
+                        </text>
+                     }
+                    @if(item.Approved=="Approved")
+                        {
+                         <text>
+                        RealEvents.push(
                         {
                             title: '@item.Name',
                             start: '@item.From.ToString("yyyy-MM-dd")',
-                            end: '@item.To.ToString("yyyy-MM-dd")',
-                            color: colors[Math.floor(Math.random() * colors.length)]
+                            end: enddate.toISOString().substring(0, 10),
+                            color: colors[0]
+                            }
+                        );
+                        </text>
+
+
+
                         }
-                    );
+
                 </text>
 
             }
-        
+
 
         $('#calendar').fullCalendar({
             // put your options and callbacks here
@@ -52,3 +76,12 @@
         console.log(RealEvents);
     });
 </script>
+<style>
+    .fc-sun {
+        background-color: #eeeeee;
+    }
+
+    .fc-sat {
+        background-color: #eeeeee;
+    }
+</style>

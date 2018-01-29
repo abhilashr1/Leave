@@ -13,7 +13,7 @@ namespace Leave.Controllers
         {
             var context = new LeaveRequestContext();
             var models = context.LeaveRequest.
-                Where(s => s.Approved != "NA" );
+                Where(s => s.Approved != "Rejected" );
 
             return View(models);
         }
