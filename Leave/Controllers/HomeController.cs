@@ -6,20 +6,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Leave.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Leave.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogger _logger;
+
         private readonly Microsoft.AspNetCore.Http.ISession session;
-        public HomeController(IHttpContextAccessor httpContextAccessor)
+        public HomeController(IHttpContextAccessor httpContextAccessor, ILogger<HomeController> logger)
         {
             this.session = httpContextAccessor.HttpContext.Session;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
+
             var userName = User.Identity.Name.Split('\\')[1];
+            _logger.LogInformation("Username", userName);
+
             var context = new AdminModelContext();
             var IsAdmin = context.AdminModel.Where(s => s.Name == userName);
             if(IsAdmin != null)

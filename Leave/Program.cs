@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace Leave
 {
@@ -19,6 +20,14 @@ namespace Leave
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                    .ConfigureLogging((hostingContext, logging) =>
+                    {
+                        logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                        logging.AddConsole();
+                        logging.AddDebug();
+                        logging.AddFilter("System", LogLevel.Debug);
+                        logging.AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Trace);
+                    })
                 .UseStartup<Startup>()
                 .Build();
     }

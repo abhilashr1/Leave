@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Leave.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace Leave
 {
@@ -26,14 +27,15 @@ namespace Leave
         {
             var connection = Configuration["Production:SqliteConnectionString"];
 
-            services.AddDbContext<LeaveRequestContext>(options =>
+            /*services.AddDbContext<LeaveRequestContext>(options =>
                 options.UseSqlite(connection)
             );
 
             services.AddDbContext<AdminModelContext>(options =>
                 options.UseSqlite(connection)
             );
-
+            */
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
             services.AddSession();
         }
