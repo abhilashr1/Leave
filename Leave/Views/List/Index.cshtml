@@ -25,6 +25,7 @@
                     <th>Reason</th>
                     <th>Approval</th>
                     <th>Approver</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,11 @@
                     <td>@item.Reason</td>
                     <td>@item.Approved</td>
                     <td>@item.Approver</td>
+                    <td>
+                        <div id="deleter-@item.Id">
+                            <button type="button" class="btn btn-danger delete" value="@item.Id">Delete</button>
+                        </div>
+                    </td>
                 </tr>
             }
             </tbody>
@@ -60,13 +66,14 @@
             <tbody>
                 @foreach (var item in Model.Approved)
             {
-                    <tr>
-                        <td>@item.From.ToShortDateString()</td>
-                        <td>@item.To.ToShortDateString()</td>
-                        <td>@item.Reason</td>
-                        <td>@item.Approved</td>
-                        <td>@item.Approver</td>
-                    </tr>
+                <tr>
+                    <td>@item.From.ToShortDateString()</td>
+                    <td>@item.To.ToShortDateString()</td>
+                    <td>@item.Reason</td>
+                    <td>@item.Approved</td>
+                    <td>@item.Approver</td>
+                   
+                </tr>
                 }
             </tbody>
         </table>
@@ -102,3 +109,25 @@
         </table>
     </div>
 </div>
+<script>
+    $(".delete").click(function(){
+        console.log("Delete clicked");
+        console.log($(this).val());
+        var element = '#deleter-' + $(this).val();
+        var dats = {
+            sid: $(this).val()
+        }
+        $.ajax({
+            type: "POST",
+            url: "/List/Delete",
+            data: dats,
+            success: function () {
+                $(element).text("Deleted your leave :/");
+            },
+            error: function (a, b, c) {
+                $(element).text("Error occured. Try again");
+            }
+        });
+
+    });
+</script>

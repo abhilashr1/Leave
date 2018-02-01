@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Leave.Models;
 using System.Dynamic;
+using System.Net.Http;
 
 namespace Leave.Controllers
 {
@@ -32,6 +33,29 @@ namespace Leave.Controllers
             model.Rejected = Rejected;
             model.Pending = Pending;
             return View(model);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage Delete(string sid)
+        {
+            try
+            {
+                int Id = Convert.ToInt32(sid);
+                string Name = User.Identity.Name.Split('\\')[1]; ;
+                using (var db = new LeaveRequestContext())
+                {
+                    var selected = db.LeaveRequest
+                            .Where(x => x.Id == Id && x.Approved == "NA").First();
+
+                    db.LeaveRequest.Remove(selected);
+                    var count = db.SaveChanges();
+                }
+                return new HttpResponseMessage(System.Net.HttpStatusCode.OK); 
+            }
+            catch(Exception e)
+            {
+                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest); 
+            }
         }
     }
 }

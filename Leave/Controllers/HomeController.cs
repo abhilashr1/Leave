@@ -23,6 +23,8 @@ namespace Leave.Controllers
 
         public IActionResult Index()
         {
+            try
+            {
 
             var userName = User.Identity.Name.Split('\\')[1];
             _logger.LogInformation("Username", userName);
@@ -54,6 +56,12 @@ namespace Leave.Controllers
             ViewData["rejectedcount"] = rejectedcount;
 
             return View();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return View();
+            }
         }
 
 
