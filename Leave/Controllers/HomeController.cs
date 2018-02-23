@@ -31,7 +31,7 @@ namespace Leave.Controllers
 
             var context = new AdminModelContext();
             var IsAdmin = context.AdminModel.Where(s => s.Name == userName);
-            if(IsAdmin != null)
+            if(IsAdmin.Count() == 1)
             {
                 HttpContext.Session.SetString("admin", "true");
             }

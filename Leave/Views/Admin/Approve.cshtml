@@ -25,7 +25,7 @@
                     <th>From</th>
                     <th>To</th>
                     <th>Reason</th>
-                    <th>Approval</th>
+                    <th>Time of Request</th>
                     <th>Approve?</th>
                 </tr>
             </thead>
@@ -37,7 +37,7 @@
                     <td>@item.From.ToShortDateString()</td>
                     <td>@item.To.ToShortDateString()</td>
                     <td>@item.Reason</td>
-                    <td>@item.Approved</td>
+                    <td>@item.RequestTime</td>
                     <td>
                         <div id="approver-@item.Id">
                             <button type="button" class="btn btn-primary approve" value="@item.Id">Approve</button>
@@ -62,7 +62,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/Admin/Approver",
+            url: "Admin/Approver",
             data: dats,
             success: function () {
                 $(element).text("Sweet! Approved.");
@@ -83,7 +83,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/Admin/Approver",
+            url: "Admin/Approver",
             data: dats,
             success: function () {
                 $(element).text("Denied :(");
