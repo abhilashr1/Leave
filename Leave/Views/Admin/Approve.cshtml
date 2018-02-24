@@ -62,7 +62,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/Admin/Approver",
+            url: "Admin/Approver",
             data: dats,
             success: function () {
                 $(element).text("Sweet! Approved.");
@@ -83,7 +83,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/Admin/Approver",
+            url: "Admin/Approver",
             data: dats,
             success: function () {
                 $(element).text("Denied :(");
