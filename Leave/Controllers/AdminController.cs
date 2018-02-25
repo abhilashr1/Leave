@@ -6,15 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Leave.Models;
 using System.Net.Http;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace Leave.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         public IActionResult Index()
         {
             var context = new LeaveRequestContext();
+            var userName = User.Identity.Name.Split('@')[0];
+            var Admincontext = new AdminModelContext();
+            var admin = Admincontext.AdminModel.Where(s => s.Name == userName).Count();
 
+            if (admin == 0)
+            {
+                return View("SimpleError");
+            }
             var baseContext = context.LeaveRequest;
 
             var Approved = baseContext
@@ -36,13 +46,13 @@ namespace Leave.Controllers
 
         public IActionResult Approve()
         {
-            var userName = User.Identity.Name.Split('\\')[1];
+            var userName = User.Identity.Name.Split('@')[0];
             var context = new AdminModelContext();
-            var admin = context.AdminModel.Where(s => s.Name == userName);
+            var admin = context.AdminModel.Where(s => s.Name == userName).Count();
 
-            if(admin == null )
+            if(admin == 0 )
             {
-                return View("Error");
+                return View("SimpleError");
             }
             else
             {
@@ -73,7 +83,7 @@ namespace Leave.Controllers
                     {
                         // This loop should happen only once
                         element.Approved = "Approved";
-                        element.Approver = User.Identity.Name.Split('\\')[1]; ;
+                        element.Approver = User.Identity.Name.Split('@')[0];
                     }
                     context.SaveChanges();
 
@@ -84,7 +94,7 @@ namespace Leave.Controllers
                     {
                         // This loop should happen only once
                         element.Approved = "Rejected";
-                        element.Approver = User.Identity.Name.Split('\\')[1]; ;
+                        element.Approver = User.Identity.Name.Split('@')[0];
                     }
                     context.SaveChanges();
 

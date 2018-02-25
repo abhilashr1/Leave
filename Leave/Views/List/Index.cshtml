@@ -4,7 +4,7 @@
 @model dynamic
 
 <div class="hero">
-    <h2>@User.Identity.Name.Split('\\')[1]'s Requests</h2>
+    <h2>@User.Identity.Name.Split("@")[0]'s Requests</h2>
 </div>
 
 <br />

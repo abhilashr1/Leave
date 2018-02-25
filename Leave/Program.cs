@@ -25,8 +25,8 @@ namespace Leave
                         logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                         logging.AddConsole();
                         logging.AddDebug();
-                        logging.AddFilter("System", LogLevel.Debug);
-                        logging.AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Trace);
+                        logging.AddFilter("System", LogLevel.Information);
+                        logging.AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information);
                     })
                 .UseStartup<Startup>()
                 .Build();

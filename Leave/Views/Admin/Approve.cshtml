@@ -4,7 +4,7 @@
 @model IEnumerable<Leave.Models.LeaveRequest>
 
 <div class="hero">
-    <h2>Hello, @User.Identity.Name.Split('\\')[1];</h2>
+    <h2>Hello, @User.Identity.Name.Split('@')[0];</h2>
     <p style="font-size:12px;color:#aaa;"> Remember: A happy employee is an employee with a lot of leave requests approved.</p>
 </div>
 
@@ -25,7 +25,7 @@
                     <th>From</th>
                     <th>To</th>
                     <th>Reason</th>
-                    <th>Approval</th>
+                    <th>Time of Request</th>
                     <th>Approve?</th>
                 </tr>
             </thead>
@@ -37,7 +37,7 @@
                     <td>@item.From.ToShortDateString()</td>
                     <td>@item.To.ToShortDateString()</td>
                     <td>@item.Reason</td>
-                    <td>@item.Approved</td>
+                    <td>@item.RequestTime</td>
                     <td>
                         <div id="approver-@item.Id">
                             <button type="button" class="btn btn-primary approve" value="@item.Id">Approve</button>
@@ -62,7 +62,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "Admin/Approver",
+            url: "/iis/Admin/Approver",
             data: dats,
             success: function () {
                 $(element).text("Sweet! Approved.");
@@ -83,7 +83,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "Admin/Approver",
+            url: "/iis/Admin/Approver",
             data: dats,
             success: function () {
                 $(element).text("Denied :(");

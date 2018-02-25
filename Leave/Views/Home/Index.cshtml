@@ -3,7 +3,15 @@
 }
 
 <div class="hero">
-    <h2>Hello, @User.Identity.Name.Split('\\')[1]!</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <br />
+            <img src="/iis/Home/ProfilePhoto" height="200px" alt="@ViewData["firstName"] @ViewData["secondName"]"/>
+        </div>
+        <div class="col-sm-8">
+            <h2>Hello, @ViewData["firstName"] @ViewData["secondName"]</h2>
+        </div>
+    </div>
 </div>
 
 <br />

@@ -6,15 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Leave.Models;
 using System.Dynamic;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Leave.Controllers
 {
+    [Authorize]
     public class ListController : Controller
     {
         public IActionResult Index()
         {
             var context = new LeaveRequestContext();
-            var userName = User.Identity.Name.Split('\\')[1];
+            var userName = User.Identity.Name.Split('@')[0];
             var baseContext = context.LeaveRequest
                        .Where(s => s.Name == userName);
 
@@ -23,7 +25,6 @@ namespace Leave.Controllers
 
             var Rejected = baseContext
                             .Where(x => x.Approved == "Rejected");
-
 
             var Pending = baseContext
                             .Where(x => x.Approved == "NA");
@@ -41,7 +42,7 @@ namespace Leave.Controllers
             try
             {
                 int Id = Convert.ToInt32(sid);
-                string Name = User.Identity.Name.Split('\\')[1]; ;
+                string Name = User.Identity.Name.Split('@')[0];
                 using (var db = new LeaveRequestContext())
                 {
                     var selected = db.LeaveRequest

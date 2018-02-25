@@ -262,3 +262,6 @@ __pycache__/
 
 #Sqlite
 Leaves.db
+
+# AAD
+appsettings.json

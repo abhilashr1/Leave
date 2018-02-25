@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Leave.Models;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Leave.Controllers
 {
+    [Authorize]
     public class RequestController : Controller
     {
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
@@ -32,7 +35,7 @@ namespace Leave.Controllers
             }
             else
             {
-                string Name = User.Identity.Name.Split('\\')[1]; ;
+                string Name = User.Identity.Name.Split('@')[0];
                 using (var db = new LeaveRequestContext())
                 {
                     db.LeaveRequest.Add(new LeaveRequest {
